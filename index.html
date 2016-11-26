@@ -7,6 +7,7 @@
     </head>
     </body>
         <h3>Testing</h3>
+        <button id="testButton">Click Me</button>
     </body>
     <script type="text/javascript">
         $(document).keypress(function(event) {
@@ -36,10 +37,36 @@
                 keyCode: event.keyCode
             });
         });
+        $("button").click(function(event){
+            var id = $(this).attr("id");
+            console.log("Button " + id + " clicked");
+            sendEvent({
+                type:"buttonClick",
+                id: id
+            });
+        });
+        $("button").mousedown(function(event){
+            var id = $(this).attr("id");
+            console.log("Button " + id + " pressed");
+            sendEvent({
+                type:"buttonDown",
+                id: id
+            });
+        });
+        $("button").mouseup(function(event){
+            var id = $(this).attr("id");
+            console.log("Button " + id + " released");
+            sendEvent({
+                type:"buttonUp",
+                id: id
+            });
+        });
         
         function sendEvent(event){
             $.post("localhost", event, function(data){
-                console.log(data);
+                if(data){
+                    console.log(data);
+                }
             });
         }
     </script>
