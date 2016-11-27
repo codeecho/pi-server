@@ -61,6 +61,14 @@
                 id: id
             });
         });
+        $("button").bind( "touchend", function(event){
+            var id = $(this).attr("id");
+            console.log("Button " + id + " released");
+            sendEvent({
+                type:"buttonUp",
+                id: id
+            });
+        });
         
         function sendEvent(event){
             $.post("localhost", event, function(data){
